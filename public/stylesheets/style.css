@@ -6,3 +6,17 @@ body {
 a {
   color: #00B7FF;
 }
+
+/**
+ * Support nonstandard pointers for UI Bootstrap
+ */
+.nav, .pagination, .carousel, .panel-title a {
+  cursor: pointer;
+}
+
+/**
+ * Put some space under the fixed navbar
+ */
+body {
+    padding-top: 50pt;
+}

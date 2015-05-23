@@ -3,7 +3,9 @@
     <envs>
       <env name="DEBUG" value="ProjectTemplate" />
     </envs>
-    <browser url="http://localhost:3000/" />
+    <browser start="true" url="http://localhost:3000/" />
+    <RunnerSettings RunnerId="Basic" />
+    <ConfigurationWrapper RunnerId="Basic" />
     <method />
   </configuration>
 </component>
