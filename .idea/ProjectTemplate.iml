@@ -10,5 +10,7 @@
     <orderEntry type="library" name="angular" level="application" />
     <orderEntry type="library" name="angular-route" level="application" />
     <orderEntry type="library" name="ui-bootstrap-tpls" level="application" />
+    <orderEntry type="library" name="express-DefinitelyTyped" level="application" />
+    <orderEntry type="library" name="mongoose" level="project" />
   </component>
 </module>
