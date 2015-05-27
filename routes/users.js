@@ -7,6 +7,14 @@ var router = express.Router();
 
 var mongoose = require('mongoose');
 
+//var passwordHasher = require('./classes/PasswordHasher.js');
+// TODO figure out how to import the PasswordHasher
+var passwordHasher = {
+  'hashPassword': function(password) {
+     return password;
+  }
+};
+
 /**
  * @augments mongoose.Model
  */
@@ -14,7 +22,7 @@ var User = require('../models/user');
 
 /* GET sample JSON users from the server */
 
-/* get all users users */
+/* get all users */
 router.get("/", function(req, res) {
 
   var query = User.find({}).select({"password": false});
@@ -29,7 +37,7 @@ router.get("/", function(req, res) {
   });
 });
 
-/* get the users for a users by id */
+/* get the user by id */
 router.get("/:id", function(req, res) {
 
   var query = User.find({
@@ -49,29 +57,35 @@ router.get("/:id", function(req, res) {
   });
 });
 
-/* insert a new users */
+/* insert a new user */
 router.post("/", function(req, res) {
 
   var data = req.body;
+  var password = data.password;
 
-  var newUser = User({
-    'name': data.name,
-    'username': data.username,
-    'password': data.password
+  new PasswordHasher().hashPassword(password, function(passwordHash) {
+
+    var newUser = User({
+      'name': data.name,
+      'username': data.username,
+      'passwordHash': passwordHash
+    });
+
+    newUser.save(function(err, user) {
+      if (err) {
+        throw err;
+      }
+
+      res.setHeader("content-type", "application/json");
+      res.send(JSON.stringify({
+        'success': true,
+        'id': user._id,
+        'username': user.name
+      }));
+    });
+    
   });
 
-  newUser.save(function(err, user) {
-    if (err) {
-      throw err;
-    }
-
-    res.setHeader("content-type", "application/json");
-    res.send(JSON.stringify({
-      'success': true,
-      'id': user._id,
-      'username': user.name
-    }));
-  });
 });
 
 /* update an existing user */
