@@ -3,27 +3,36 @@
  */
 function PasswordHasher() {
 
-  var bcrypt = require('bcrypt');
+  var bcrypt = require('bcrypt-nodejs');
 
   var saltWorkFactor = 10;
 
   return {
     hashPassword: function(password, callback) {
 
+      if (!password) {
+        callback("Missing Password");
+        return;
+      }
+
       bcrypt.genSalt(saltWorkFactor, function(err, salt) {
-        // TODO handle error
+        if (err) {
+          callback(err, salt);
+          return;
+        }
 
-        bcrypt.hash(password, salt, function(err, hash) {
-          // TODO handle error
-
-          callback(hash);
+        bcrypt.hash(password, salt, null, function(err, hash) {
+          callback(err, hash);
         });
       });
     },
-    comparePasswordHash: function(hash1, hash2) {
+    comparePasswordToHash: function(password, passwordHash, callback) {
 
+      bcrypt.compare(password, passwordHash, function(err, success) {
+        callback(err, success);
+      });
     }
   };
 }
 
-module.exports.PasswordHasher = PasswordHasher;
+module.exports = new PasswordHasher();
