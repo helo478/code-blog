@@ -7,13 +7,7 @@ var router = express.Router();
 
 var mongoose = require('mongoose');
 
-//var passwordHasher = require('./classes/PasswordHasher.js');
-// TODO figure out how to import the PasswordHasher
-var passwordHasher = {
-  'hashPassword': function(password) {
-     return password;
-  }
-};
+var passwordHasher = require("../classes/PasswordHasher");
 
 /**
  * @augments mongoose.Model
