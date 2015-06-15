@@ -7,6 +7,7 @@
 angular.module("myApp", [
   "ngRoute",
   "navbar",
+  "createAccount",
   "myApp.home",
   "myApp.view1",
   "myApp.view2"
