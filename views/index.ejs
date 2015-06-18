@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="/stylesheets/style.css" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" />
   </head>
-  <body>
+  <body ng-controller="AppCtrl">
     <nav class="navbar navbar-default navbar-fixed-top" ng-controller="NavbarCtrl">
         <div class="container-fluid">
             <div class="navbar-header"><!-- the navbar collapsing references this http://embed.plnkr.co/HkwfL9/preview -->
@@ -32,12 +32,14 @@
                         <a href="#/view2">View 2</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li>
-                        <!--a href="#"><span class="glyphicon glyphicon-user"></span> Create Account</a-->
-                        <a><create-account></create-account></a>
+                    <li ng-hide="isLoggedIn()">
+                        <a><create-account-button></create-account-button></a>
                     </li>
-                    <li>
-                        <a href="#"><span class="glyphicon glyphicon-log-in"></span> Log In</a>
+                    <li ng-hide="isLoggedIn()">
+                        <a><log-in-button></log-in-button></a>
+                    </li>
+                    <li ng-show="isLoggedIn()">
+                        <a><log-out-button></log-out-button></a>
                     </li>
                 </ul>
             </div>
@@ -50,7 +52,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.16/angular-route.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.13.0/ui-bootstrap-tpls.js"></script>
     <script src="navbar.js"></script>
-    <script src="modals/create-account-modal/create-account-modal.js"></script>
+    <script src="../directives/create-account/create-account.js"></script>
+    <script src="../directives/authentication/authentication.js"></script>
     <script src="views/home/home.js"></script>
     <script src="views/view1/view1.js"></script>
     <script src="views/view2/view2.js"></script>

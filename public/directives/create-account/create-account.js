@@ -4,43 +4,38 @@
 
 angular.module("createAccount", ["ui.bootstrap"])
 
-.controller("CreateAccountModalCtrl", [function() {
-
-    console.log("Initializing CreateAccountModalCtrl");
-}])
-
-.directive("createAccount", function() {
+.directive("createAccountButton", function() {
   return {
     restrict: "E",
     template: "<span ng-click='openModal()'><span class='glyphicon glyphicon-user'></span> Create Account</span>",
     controller: ["$log", "$scope", "$modal", function($log, $scope, $modal) {
-      console.log("Initializing directive 'createAccount' anonymous controller");
+      console.log("initializing directive 'createAccountButton' anonymous controller");
 
       $scope.openModal = function() {
-        $log.log("entering directive 'createAccount' anonymous controller function 'openModal'");
+        $log.log("entering directive 'createAccountButton' anonymous controller function 'openModal'");
 
         var modalInstance = $modal.open({
-          templateUrl: "modals/create-account-modal/create-account-modal.html",
+          templateUrl: "../directives/create-account/create-account-modal.html",
           controller: ["$log", "$scope", "$http", function($log, $scope, $http) {
-            $log.log("initializing directive 'createAccount' modal.open anonymous controller");
+            $log.log("initializing directive 'createAccountButton' modal.open anonymous controller");
 
-            $scope.logInCredentials = null;
-            var initializeLogInCredentials = function() {
-              $scope.logInCredentials = {
+            $scope.createAccountCredentials = null;
+            var initializeCreateAccountCredentials = function() {
+              $scope.createAccountCredentials = {
                 userName: "",
                 password: ""
               };
             };
-            initializeLogInCredentials();
+            initializeCreateAccountCredentials();
 
             $scope.submit = function() {
-              $log.log("entering directive 'createAccount modal.open anonymous controller function 'submit'");
+              $log.log("entering directive 'createAccountButton modal.open anonymous controller function 'submit'");
 
-              var userName = $scope.logInCredentials.userName;
-              var password = $scope.logInCredentials.password;
+              var userName = $scope.createAccountCredentials.userName;
+              var password = $scope.createAccountCredentials.password;
 
               $http({
-                url: "/createAccount",
+                url: "/createAccountButton",
                 method: "POST",
                 headers: {
                   "username": userName,
@@ -49,21 +44,19 @@ angular.module("createAccount", ["ui.bootstrap"])
               }).success(function(data, status, headers, config) {
                 $log.info("AJAX callback success for create account", data, status, headers, config);
 
-
                 modalInstance.close();
-                initializeLogInCredentials();
+                initializeCreateAccountCredentials();
 
               }).error(function(data, status, headers, config) {
                 $log.info("AJAX callback error for create account", data, status, headers, config);
-
               });
             };
 
             $scope.cancel = function() {
-              $log.log("entering directive 'createAccount modal.open anonymous controller function 'cancel'");
+              $log.log("entering directive 'createAccountButton modal.open anonymous controller function 'cancel'");
 
               modalInstance.close();
-              initializeLogInCredentials();
+              initializeCreateAccountCredentials();
             };
           }]
         });

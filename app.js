@@ -29,7 +29,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
-app.use('/createAccount', createAccount);
+app.use('/createAccountButton', createAccount);
 app.use('/logIn', logIn);
 app.use('/users', users);
 app.use('/things', things);
