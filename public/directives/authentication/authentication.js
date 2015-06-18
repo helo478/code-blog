@@ -27,8 +27,6 @@ angular.module("authentication", ["ui.bootstrap"])
     $log.info("setting authenticated user to ", _authenticatedUser);
 
     authenticatedUser = _authenticatedUser;
-
-    $log.debug("isLoggedIn(): ", authenticationService.isLoggedIn());
   };
 
   this.getAuthenticatedUserName = function() {
@@ -40,7 +38,7 @@ angular.module("authentication", ["ui.bootstrap"])
 
   this.getAuthenticatedUserId = function() {
     if (authenticatedUser) {
-      return authenticatedUser.id;
+      return authenticatedUser._id;
     }
   };
 
@@ -76,7 +74,7 @@ angular.module("authentication", ["ui.bootstrap"])
 .directive("logInButton", function() {
   return {
     restrict: "E",
-    template: "<span ng-click='openLogInModal()'><span class='glyphicon glyphicon-authentication'></span> Log In</span>",
+    template: "<span ng-click='openLogInModal()'><span class='glyphicon glyphicon-log-in'></span> Log In</span>",
     controller: ["$log", "$scope", "$modal", "authenticationService", function($log, $scope, $modal, authenticationService) {
       $log.log("initializing directive 'logInButton' anonymous controller");
 

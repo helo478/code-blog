@@ -47,11 +47,13 @@ router.post("/", function(req, res) {
         return;
       }
 
+      userObject.passwordHash = null;
+
       if(success) {
-        var session = Session.createSession(userObject["_id"]);
+        userObject.session = Session.createSession(userObject["_id"]);
 
         res.setHeader("content-type", "application/json");
-        res.send(JSON.stringify(session));
+        res.send(JSON.stringify(userObject));
       }
       else {
         Error.throw(res, "Incorrect userName or password");
