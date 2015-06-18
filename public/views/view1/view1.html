@@ -1,3 +1,15 @@
 <div class="container">
-    <p>This is view #1</p>
+    <div ng-hide="isLoggedIn()">
+        <p>Log in to post a blog</p>
+    </div>
+
+    <div ng-show="isLoggedIn()">
+        <input class="form-control" type="text" ng-model="newBlogEntry.subject" placeholder="subject">
+        <textarea class="form-control" ng-model="newBlogEntry.body"></textarea>
+
+        <h4>{{newBlogEntry.subject}}</h4>
+        <p>{{newBlogEntry.body}}</p>
+
+        <button class="btn btn-primary" ng-click="submit()">Submit</button>
+    </div>
 </div>

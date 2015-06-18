@@ -14,7 +14,7 @@ angular.module("authentication", ["ui.bootstrap"])
     authenticatedUser = {
       _id: null,
       userName: null,
-      sessionToken: {
+      session: {
         userId: null,
         sessionToken: null,
         expiration: null
@@ -40,6 +40,10 @@ angular.module("authentication", ["ui.bootstrap"])
     if (authenticatedUser) {
       return authenticatedUser._id;
     }
+  };
+
+  this.getSessionToken = function() {
+    return authenticatedUser.session.sessionToken;
   };
 
   this.isLoggedIn = function() {
@@ -86,6 +90,7 @@ angular.module("authentication", ["ui.bootstrap"])
           controller: ["$log", "$scope", "$http", function($log, $scope, $http) {
             $log.log("initializing directive 'logInButton' modal.open anonymous controller");
 
+            // The data model for the form the user types their credentials into
             $scope.logInCredentials = null;
             var initializeLogInCredentials = function() {
               $scope.logInCredentials = {
@@ -95,6 +100,7 @@ angular.module("authentication", ["ui.bootstrap"])
             };
             initializeLogInCredentials();
 
+            // Submit the credentials to the server, attempting to log in
             $scope.submit = function() {
               $log.log("entering directive 'logInButton modal.open anonymous controller function 'submit'");
 
@@ -105,6 +111,7 @@ angular.module("authentication", ["ui.bootstrap"])
                 url: "/logIn",
                 method: "POST",
                 headers: {
+                  "content-type": "application/json",
                   "username": userName,
                   "password": password
                 }
@@ -117,11 +124,11 @@ angular.module("authentication", ["ui.bootstrap"])
 
               }).error(function(data, status, headers, config) {
                 $log.info("AJAX callback error for log in", data, status, headers, config);
-              })
-            }
+              });
+            };
           }]
-        })
-      }
+        });
+      };
     }]
   };
 });
