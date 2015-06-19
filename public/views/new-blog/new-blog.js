@@ -13,8 +13,8 @@ angular.module("codeBlog.newBlog", ['ngRoute', "authentication"])
   });
 }])
 
-.controller("NewBlogCtrl", ["$log", "$scope", "$http", "authenticationService",
-    function($log, $scope, $http, authenticationService) {
+.controller("NewBlogCtrl", ["$log", "$scope", "$http", "$location", "authenticationService",
+    function($log, $scope, $http, $location, authenticationService) {
 
   console.log("Initializing NewBlogCtrl");
 
@@ -42,7 +42,7 @@ angular.module("codeBlog.newBlog", ['ngRoute', "authentication"])
       .success(function(data, status, headers, config) {
         $log.log("AJAX success for post blog: ", data, status, headers, config);
         initializeNewBlogEntry();
-        alert("Blog Successfully Posted");//TODO replace alert with redirect
+        $location.path("blogs/" + data._id);
     })
       .error(function(data, status, headers, config) {
         $log.error("AJAX error for post blog: ", data, status, headers, config);
