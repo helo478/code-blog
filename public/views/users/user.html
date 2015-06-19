@@ -1,0 +1,7 @@
+<div class="container">
+    <h1 class="page-header">{{user.userName}}</h1>
+    <div ng-repeat="blog in user.blogs">
+        <h3><a href="#/blogs/{{blog._id}}">{{blog.subject}}</a></h3>
+        <p>{{blog.body}}</p>
+    </div>
+</div>

@@ -14,12 +14,10 @@ var passwordHasher = require("../classes/PasswordHasher");
  */
 var User = require('../models/user');
 
-/* GET sample JSON users from the server */
-
 /* get all users */
 router.get("/", function(req, res) {
 
-  var query = User.find({}).select({"password": false});
+  var query = User.find({}).select({"passwordHash": false});
 
   query.exec(function(err, users) {
     if (err) {
@@ -34,16 +32,18 @@ router.get("/", function(req, res) {
 /* get the user by id */
 router.get("/:id", function(req, res) {
 
-  var query = User.find({
+  var query = User.findOne({
       "_id": req.params["id"]
     })
     .select({
-      "password": false
+      "passwordHash": false
     });
 
   query.exec(function(err, user) {
     if (err) {
-      throw err;
+      res.setHeader("content-type", "application/json");
+      res.send(JSON.stringify({"error": "Unable to find user by id"}));
+      return;
     }
 
     res.setHeader("content-type", "application/json");
@@ -124,5 +124,27 @@ router.delete("/:id", function(req, res) {
     }));
   });
 });
+
+/* For requests to a user's blogs, parse the user from the userId and route the request to the userBlogs middleware */
+router.use("/:userId/blogs", function(req, res, next) {
+
+  var query = User.findOne({
+    "_id": req.params["userId"]
+  });
+
+  query.exec(function(err, user) {
+    if (err) {
+      res.setHeader("content-type", "application/json");
+      res.send(JSON.stringify({"error": "Unable to find user by id"}));
+      return;
+    }
+
+    if(!req.extras) { req.extras = {}; }
+    req.extras.author = user;
+
+    next();
+  });
+});
+router.use("/:userId/blogs", require("../routes/userBlogs"));
 
 module.exports = router;

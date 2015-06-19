@@ -10,8 +10,10 @@ angular.module("myApp", [
   "createAccount",
   "authentication",
   "myApp.home",
-  "myApp.view1",
-  "myApp.view2"
+  "codeBlog.blogDetail",
+  "codeBlog.blogsList",
+  "codeBlog.newBlog",
+  "codeBlog.users"
 ])
 
 .config(["$routeProvider", function($routeProvider) {

@@ -5,8 +5,9 @@
 var mongoose = require('mongoose');
 
 var blogSchema = new mongoose.Schema({
-  subject: String,
-  body: String
+  author: {type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true},
+  subject: {type: String, required: true},
+  body: {type: String, required: true}
 });
 
 var Blog = mongoose.model("Blog", blogSchema);

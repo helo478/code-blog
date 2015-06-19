@@ -25,12 +25,13 @@
             </div>
             <div class="collapse navbar-collapse" ng-class="!isCollapsed && 'in'">
                 <ul class="nav navbar-nav">
-                    <li ng-class="{ active: isActive('/view1') }"><!--suppress HtmlUnknownAnchorTarget -->
-                        <a href="#/view1">View 1</a>
+                    <li ng-show="isLoggedIn()"
+                            ng-class="{ active: isActive(new-blog) }"><!--suppress HtmlUnknownAnchorTarget -->
+                        <a href="#/newBlog">New Blog</a>
                     </li>
 
-                    <li ng-class="{ active: isActive('/view2') }"><!--suppress HtmlUnknownAnchorTarget -->
-                        <a href="#/view2">View 2</a>
+                    <li ng-class="{ active: isActive(users) }"><!--suppress HtmlUnknownAnchorTarget -->
+                        <a href="#/users">Bloggers</a>
                     </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
@@ -57,8 +58,10 @@
     <script src="../directives/create-account/create-account.js"></script>
     <script src="../directives/authentication/authentication.js"></script>
     <script src="views/home/home.js"></script>
-    <script src="views/view1/view1.js"></script>
-    <script src="views/view2/view2.js"></script>
+    <script src="views/blog-detail/blog-detail.js"></script>
+    <script src="views/blogs-list/blogs-list.js"></script>
+    <script src="views/new-blog/new-blog.js"></script>
+    <script src="views/users/users.js"></script>
     <script src="ng-app.js"></script>
   </body>
 </html>

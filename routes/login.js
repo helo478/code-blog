@@ -27,7 +27,8 @@ router.post("/", function(req, res) {
     return;
   }
 
-  User.findOne({ "userName": userName }, function(err, user) {
+  var query = User.findOne({ "userName": userName}).select("+passwordHash");
+  query.exec(function(err, user) {
     if (err) {
       Error.throw(res, "Unable to search users collection", err);
       return;

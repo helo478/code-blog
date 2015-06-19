@@ -1,0 +1,51 @@
+/**
+ * Created by Donald on 5/22/2015.
+ */
+
+angular.module("codeBlog.newBlog", ['ngRoute', "authentication"])
+
+.config(["$routeProvider", function($routeProvider) {
+
+  $routeProvider.when(
+      "/newBlog", {
+      templateUrl: "views/new-blog/new-blog.html",
+      controller: "NewBlogCtrl"
+  });
+}])
+
+.controller("NewBlogCtrl", ["$log", "$scope", "$http", "authenticationService",
+    function($log, $scope, $http, authenticationService) {
+
+  console.log("Initializing NewBlogCtrl");
+
+  $scope.newBlogEntry = null;
+  var initializeNewBlogEntry = function() {
+    $scope.newBlogEntry = {
+      'subject': "",
+      'body': ""
+    };
+  };
+  initializeNewBlogEntry();
+
+  $scope.submit = function() {
+    $log.log("entering 'NewBlogCtrl' function 'submit'");
+
+    $http({
+      url: "/blogs",
+      method: "POST",
+      data: $scope.newBlogEntry,
+      headers: {
+        'userid': authenticationService.getAuthenticatedUserId(),
+        'token': JSON.stringify(authenticationService.getSessionToken())
+      }
+    })
+      .success(function(data, status, headers, config) {
+        $log.log("AJAX success for post blog: ", data, status, headers, config);
+        initializeNewBlogEntry();
+        alert("Blog Successfully Posted");//TODO replace alert with redirect
+    })
+      .error(function(data, status, headers, config) {
+        $log.error("AJAX error for post blog: ", data, status, headers, config);
+    });
+  };
+}]);

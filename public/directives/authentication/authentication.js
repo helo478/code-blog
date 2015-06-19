@@ -4,10 +4,9 @@
 angular.module("authentication", ["ui.bootstrap"])
 
 .service("authenticationService", ["$log", function($log) {
+  $log.log("Initializing authenticationService");
 
-  $log.log("Initializing logInProvider");
-
-  var authenticationService = this;
+  //var authenticationService = this;
 
   var authenticatedUser = null;
   var initializeAuthenticatedUser = function() {
@@ -40,10 +39,19 @@ angular.module("authentication", ["ui.bootstrap"])
     if (authenticatedUser) {
       return authenticatedUser._id;
     }
+    else {
+      $log.warn("authenticationService trying to access authenticated user id when no authenticated user exists");
+    }
   };
 
   this.getSessionToken = function() {
-    return authenticatedUser.session.sessionToken;
+    if (authenticatedUser && authenticatedUser.session) {
+      return authenticatedUser.session.token;
+    }
+    else {
+      $log.warn(
+        "authenticationService trying to access authenticated user sessionToken when no authenticated user exists");
+    }
   };
 
   this.isLoggedIn = function() {

@@ -25,7 +25,7 @@ function Session() {
       var session = {
         userId: userId,
         token: token,
-        expiration: Date.now() + 10000000
+        expiration: Date.now() + 100000000000
       }
 
       sessions.push(session);
@@ -34,15 +34,13 @@ function Session() {
     },
     'verifyToken': function(userId, token) {
 
-      if (token == "rightin2") { return true; } // remove after debug
-
-      if (!userId || ! token) {
+      if (!userId || !token) {
         return false;
       }
 
       for (var session in sessions) {
         if (sessions[session].expiration > Date.now()) {
-          if (sessions[session].userId == userId && token === JSON.stringify(sessions[session].token)) {
+          if (sessions[session].userId.equals(userId) && token === JSON.stringify(sessions[session].token)) {
             return true;
           }
         }

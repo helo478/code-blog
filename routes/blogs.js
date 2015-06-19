@@ -7,15 +7,18 @@ var router = express.Router();
 
 var mongoose = require('mongoose');
 
+var session = require('../classes/Session');
+
 /**
  * @augments mongoose.Model
  */
-var Thing = require('../models/blog');
+var Blog = require('../models/blog');
 
 /* get blogs by user id */
 router.get("/", function(req, res) {
 
   var query = Blog.find({}); // TODO filter by user id
+  // TODO attach author reference
 
   query.exec(function(err, blogs) {
     if (err) {
@@ -30,27 +33,40 @@ router.get("/", function(req, res) {
 /* post a new blog */
 router.post("/", function(req, res) {
 
+  var userId = req.headers["userid"];
+  var token = req.headers["token"];
+
   var data = req.body;
-  var newBlog = Blog(data);
-  newBlog.save(function(err, blog) {
-    if (err) {
-      console.log(err);
-      return;
-    }
+  data.author = userId;
 
+  // if request has valid userid and sessionToken
+  if (session.verifyToken(userId, token)) {
+    var newBlog = Blog(data);
+    newBlog.save(function (err, blog) {
+      if (err) {
+        console.log(err);
+        res.setHeader("content-type", "application/json");
+        res.send(JSON.stringify("missing or malformed data for post blog"));
+        return;
+      }
+
+      res.setHeader("content-type", "application/json");
+      res.send(JSON.stringify(blog));
+    });
+  }
+  else {
     res.setHeader("content-type", "application/json");
-    res.send(JSON.stringify(blog));
-  });
-
-  // TODO verify authentication
+    res.send(JSON.stringify("request to post blog could not be authenticated"));
+  }
 })
 
-/* get the thing by id */
-router.get("/:id", function(req, res) {
+/* get the blog by id */
+router.get("/:blogId", function(req, res) {
 
-  var query = Thing.find({
-    "_id": req.params["id"]
-  });
+  var query = Blog.findOne({
+    "_id": req.params["blogId"]
+  })
+  .populate("author");
 
   query.exec(function(err, thing) {
     if (err) {
