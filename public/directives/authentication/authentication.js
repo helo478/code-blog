@@ -6,62 +6,77 @@ angular.module("authentication", ["ui.bootstrap"])
 .service("authenticationService", ["$log", function($log) {
   $log.log("Initializing authenticationService");
 
-  //var authenticationService = this;
+  var getValidAuthenticatedUser = function() {
+      var authenticatedUser = JSON.parse(localStorage.getItem("authenticatedUser"));
 
-  var authenticatedUser = null;
-  var initializeAuthenticatedUser = function() {
-    authenticatedUser = {
-      _id: null,
-      userName: null,
-      session: {
-        userId: null,
-        sessionToken: null,
-        expiration: null
-      }
-    };
+    if (authenticatedUser
+        && authenticatedUser._id
+        && authenticatedUser.userName
+        && authenticatedUser.session
+        && authenticatedUser.session.userId
+        && authenticatedUser.session.token
+        && authenticatedUser.session.expiration
+        && authenticatedUser.session.expiration > Date.now()) {
+      return authenticatedUser;
+    }
+    else {
+      return null;
+    }
   };
-  initializeAuthenticatedUser();
 
-  this.setAuthenticatedUser = function(_authenticatedUser) {
-    $log.info("setting authenticated user to ", _authenticatedUser);
+  this.setAuthenticatedUser = function(authenticatedUser) {
+    $log.info("setting authenticated user to ", authenticatedUser);
 
-    authenticatedUser = _authenticatedUser;
+    localStorage.setItem("authenticatedUser", JSON.stringify(authenticatedUser));
   };
 
   this.getAuthenticatedUserName = function() {
+
+    var authenticatedUser = getValidAuthenticatedUser();
     if (authenticatedUser) {
       return authenticatedUser.userName;
     }
-    return null;
+    else {
+      $log.warn("authenticationService trying to access authenticated user name when no authenticated user exists");
+      return null;
+    }
   };
 
   this.getAuthenticatedUserId = function() {
+
+    var authenticatedUser = getValidAuthenticatedUser();
     if (authenticatedUser) {
       return authenticatedUser._id;
     }
     else {
       $log.warn("authenticationService trying to access authenticated user id when no authenticated user exists");
+      return null;
     }
   };
 
   this.getSessionToken = function() {
+
+    var authenticatedUser = getValidAuthenticatedUser();
     if (authenticatedUser && authenticatedUser.session) {
       return authenticatedUser.session.token;
     }
     else {
       $log.warn(
         "authenticationService trying to access authenticated user sessionToken when no authenticated user exists");
+      return null;
     }
   };
 
   this.isLoggedIn = function() {
-    return authenticatedUser != null && authenticatedUser._id != null;
+    return getValidAuthenticatedUser() != null;
   };
 
   this.logOut = function() {
     $log.log("entering module 'authentication' service 'logInService' function 'logOut'");
 
-    initializeAuthenticatedUser();
+    // TODO access server side log out function
+
+    localStorage.setItem("authenticatedUser", null);
   };
 
 }])
@@ -110,7 +125,7 @@ angular.module("authentication", ["ui.bootstrap"])
 
             // Submit the credentials to the server, attempting to log in
             $scope.submit = function() {
-              $log.log("entering directive 'logInButton modal.open anonymous controller function 'submit'");
+              $log.log("entering directive 'logInButton' modal.open anonymous controller function 'submit'");
 
               var userName = $scope.logInCredentials.userName;
               var password = $scope.logInCredentials.password;
@@ -134,6 +149,13 @@ angular.module("authentication", ["ui.bootstrap"])
                 $log.info("AJAX callback error for log in", data, status, headers, config);
               });
             };
+
+            $scope.cancel = function() {
+              $log.log("entering deirective 'logInButton' modal.open anonymous controller function 'cancel'");
+
+              initializeLogInCredentials();
+              modalInstance.close();
+            }
           }]
         });
       };

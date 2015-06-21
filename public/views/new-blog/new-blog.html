@@ -5,7 +5,10 @@
 
     <div ng-show="isLoggedIn()">
         <input class="form-control" type="text" ng-model="newBlogEntry.subject" placeholder="subject">
-        <textarea class="form-control" ng-model="newBlogEntry.body"></textarea>
+        <textarea class="form-control" ng-model="newBlogEntry.body">
+            <button class="btn-default">Test Button</button>
+
+        </textarea>
 
         <h4>{{newBlogEntry.subject}}</h4>
         <p>{{newBlogEntry.body}}</p>

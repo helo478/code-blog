@@ -29,7 +29,7 @@ angular.module("createAccount", ["ui.bootstrap"])
             initializeCreateAccountCredentials();
 
             $scope.submit = function() {
-              $log.log("entering directive 'createAccountButton modal.open anonymous controller function 'submit'");
+              $log.log("entering directive 'createAccountButton' modal.open anonymous controller function 'submit'");
 
               var userName = $scope.createAccountCredentials.userName;
               var password = $scope.createAccountCredentials.password;
@@ -53,10 +53,10 @@ angular.module("createAccount", ["ui.bootstrap"])
             };
 
             $scope.cancel = function() {
-              $log.log("entering directive 'createAccountButton modal.open anonymous controller function 'cancel'");
+              $log.log("entering directive 'createAccountButton' modal.open anonymous controller function 'cancel'");
 
-              modalInstance.close();
               initializeCreateAccountCredentials();
+              modalInstance.close();
             };
           }]
         });
