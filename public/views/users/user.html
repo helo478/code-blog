@@ -1,6 +1,6 @@
 <div class="container">
     <h1 class="page-header">{{user.userName}}</h1>
-    <div ng-repeat="blog in user.blogs">
+    <div ng-repeat="blog in user.blogs | orderBy: '-createdOn'">
         <h3><a href="#/blogs/{{blog._id}}">{{blog.subject}}</a></h3>
         <pre>{{blog.body}}</pre>
     </div>
