@@ -26,4 +26,8 @@ angular.module("myApp", [
   $scope.isLoggedIn = function() {
     return authenticationService.isLoggedIn();
   };
+
+  $scope.getAuthenticatedUserName = function() {
+      return authenticationService.getAuthenticatedUserName();
+  };
 }]);

@@ -27,7 +27,7 @@
                 <ul class="nav navbar-nav">
                     <li ng-show="isLoggedIn()"
                             ng-class="{ active: isActive(new-blog) }"><!--suppress HtmlUnknownAnchorTarget -->
-                        <a href="#/newBlog">New Blog</a>
+                        <a href="#/newBlog"><span class="glyphicon glyphicon-plus"></span> New Blog</a>
                     </li>
 
                     <li ng-class="{ active: isActive(users) }"><!--suppress HtmlUnknownAnchorTarget -->
@@ -40,6 +40,9 @@
                     </li>
                     <li ng-hide="isLoggedIn()">
                         <a><log-in-button></log-in-button></a>
+                    </li>
+                    <li ng-show="isLoggedIn()">
+                        <a><span class="glyphicon glyphicon-user"></span> {{getAuthenticatedUserName()}}</a>
                     </li>
                     <li ng-show="isLoggedIn()">
                         <a><log-out-button></log-out-button></a>
