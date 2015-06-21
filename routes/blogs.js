@@ -41,7 +41,12 @@ router.post("/", function(req, res) {
 
   // if request has valid userid and sessionToken
   if (session.verifyToken(userId, token)) {
+
+    // Create a blog object from the data and set system-derived values
+    data.comments = [];
+    data.createdOn = Date.now();
     var newBlog = Blog(data);
+
     newBlog.save(function (err, blog) {
       if (err) {
         console.log(err);
@@ -78,34 +83,8 @@ router.get("/:blogId", function(req, res) {
   });
 });
 
-/* insert a new thing */
-router.post("/", function(req, res) {
-
-  var data = req.body;
-
-  var newThing = Thing({
-    'foo': data.foo,
-    'bar': data.bar,
-    'baz': data.baz,
-    'createdOn': Date.now(),
-    'editedOn': null
-  });
-
-  newThing.save(function(err, thing) {
-    if (err) {
-      throw err;
-    }
-
-    res.setHeader("content-type", "application/json");
-    res.send(JSON.stringify({
-      'success': true,
-      'thing': thing
-    }));
-  });
-});
-
 /* update an existing thing */
-router.put("/:id", function(req, res) {
+/*router.put("/:id", function(req, res) {
 
   Thing.findOne({ "_id": req.params["id"] }, function(err, thing) {
 
@@ -128,9 +107,10 @@ router.put("/:id", function(req, res) {
     });
   });
 });
+*/
 
 /* delete a thing */
-router.delete("/:id", function(req, res) {
+/*router.delete("/:id", function(req, res) {
 
   Thing.find({"_id": req.params["id"]}).remove(function (err) {
     if (err) {
@@ -143,5 +123,6 @@ router.delete("/:id", function(req, res) {
     }));
   });
 });
+*/
 
 module.exports = router;
