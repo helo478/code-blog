@@ -2,7 +2,7 @@
  * Created by Donald on 5/22/2015.
  */
 
-angular.module("codeBlog.newBlog", ['ngRoute', "authentication"])
+angular.module("codeBlog.newBlog", ['ngRoute', "peak15.authentication"])
 
 .config(["$routeProvider", function($routeProvider) {
 
@@ -26,6 +26,17 @@ angular.module("codeBlog.newBlog", ['ngRoute', "authentication"])
     };
   };
   initializeNewBlogEntry();
+
+  $scope.parsedNewBlogEntryBody = "";
+
+  $scope.refreshNewBlogEntryBody = function() {
+    $log.debug("entering 'NewBlogCtrl' controller 'refreshNewBlogEntryBody' function")
+    $scope.parsedNewBlogEntryBody = $scope.newBlogEntry.body.split("\n");
+  };
+
+  $scope.isCode = function(line) {
+     return line === "code" || line === "codex";
+  }
 
   $scope.submit = function() {
     $log.log("entering 'NewBlogCtrl' function 'submit'");

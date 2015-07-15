@@ -1,7 +1,7 @@
 /**
  * Created by Donald on 6/14/2015.
  */
-angular.module("authentication", ["ui.bootstrap"])
+angular.module("peak15.authentication", ["ui.bootstrap"])
 
 .service("authenticationService", ["$log", function($log) {
   $log.log("Initializing authenticationService");

@@ -5,7 +5,7 @@
  * http://stackoverflow.com/questions/16199418/how-do-i-implement-the-bootstrap-navbar-active-class-with-angular-js
  */
 
-angular.module("navbar", [])
+angular.module("peak15.navbar", [])
 
 .controller("NavbarCtrl", ["$scope", "$location", function($scope, $location) {
 

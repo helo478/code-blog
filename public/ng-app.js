@@ -4,12 +4,12 @@
 
 "use strict";
 
-angular.module("myApp", [
+angular.module("codeBlog", [
   "ngRoute",
-  "navbar",
-  "createAccount",
-  "authentication",
-  "myApp.home",
+  "peak15.navbar",
+  "peak15.createAccount",
+  "peak15.authentication",
+  "codeBlog.home",
   "codeBlog.blogDetail",
   "codeBlog.blogsList",
   "codeBlog.newBlog",

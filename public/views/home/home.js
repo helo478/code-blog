@@ -4,7 +4,7 @@
 
 "use strict";
 
-angular.module("myApp.home", ["ngRoute"])
+angular.module("codeBlog.home", ["ngRoute"])
 
 .config(["$routeProvider", function($routeProvider) {
     $routeProvider.when("/home", {

@@ -2,7 +2,7 @@
  * Created by Donald on 6/14/2015.
  */
 
-angular.module("createAccount", ["ui.bootstrap"])
+angular.module("peak15.createAccount", ["ui.bootstrap"])
 
 .directive("createAccountButton", function() {
   return {
