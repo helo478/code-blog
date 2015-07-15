@@ -53,6 +53,7 @@ angular.module("codeBlog.newBlog", ['ngRoute', "peak15.authentication"])
         // If there is not an existing code section, create one
         if (!newCode) {
           newCode = document.createElement("pre");
+          newCode.className += "prettyprint";
         }
         else {
           // Add a line break
@@ -78,10 +79,11 @@ angular.module("codeBlog.newBlog", ['ngRoute', "peak15.authentication"])
 
     // Add a final code section, if exists
     if (newCode) { target.appendChild(newCode); }
+
+    prettyPrint();
   }
 
   function isCode(line) {
-    $log.debug("line '" + line + "' startsWith('    '): " + line.startsWith("    "));
     return line.startsWith("    ");
   }
 
