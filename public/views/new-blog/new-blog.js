@@ -29,13 +29,60 @@ angular.module("codeBlog.newBlog", ['ngRoute', "peak15.authentication"])
 
   $scope.parsedNewBlogEntryBody = "";
 
-  $scope.refreshNewBlogEntryBody = function() {
-    $log.debug("entering 'NewBlogCtrl' controller 'refreshNewBlogEntryBody' function")
-    $scope.parsedNewBlogEntryBody = $scope.newBlogEntry.body.split("\n");
-  };
+  $scope.$watch(
+    function(scope) {
+      return scope.newBlogEntry.body;
+    },
+    function() {
+      $log.debug("detecting a change to $scope.newBlogEntry.body");
+      populatePreview();
+    }
+  );
 
-  $scope.isCode = function(line) {
-     return line === "code" || line === "codex";
+  function populatePreview() {
+    var target = document.getElementById("new-blog-preview");
+
+    target.innerHTML = "";
+
+    var tokens = $scope.newBlogEntry.body.split("\n");
+    var newCode;
+
+    tokens.forEach(function(token) {
+
+      if (isCode(token)) {
+        // If there is not an existing code section, create one
+        if (!newCode) {
+          newCode = document.createElement("pre");
+        }
+        else {
+          // Add a line break
+          newCode.textContent += "\n";
+        }
+
+        // Add the code line
+        newCode.textContent += token.substring(3);
+      }
+      else {
+        // If the last line was code, add the code section
+        if (newCode) {
+          target.appendChild(newCode);
+          newCode = null;
+        }
+
+        // Add the non-code line
+        var newParagraph = document.createElement("p");
+        newParagraph.textContent = token;
+        target.appendChild(newParagraph);
+      }
+    });
+
+    // Add a final code section, if exists
+    if (newCode) { target.appendChild(newCode); }
+  }
+
+  function isCode(line) {
+    $log.debug("line '" + line + "' startsWith('    '): " + line.startsWith("    "));
+    return line.startsWith("    ");
   }
 
   $scope.submit = function() {

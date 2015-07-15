@@ -5,7 +5,9 @@
 
     <div ng-show="isLoggedIn()">
         <input class="form-control" type="text" ng-model="newBlogEntry.subject" placeholder="subject">
-        <textarea class="form-control" ng-model="newBlogEntry.body" ng-change="refreshNewBlogEntryBody()">
+        <textarea class="form-control" ng-model="newBlogEntry.body"
+                  ng-change="refreshNewBlogEntryBody()" ng-trim="false">
+
             <button class="btn-default">Test Button</button>
 
         </textarea>
@@ -14,14 +16,10 @@
 
         <h4>{{newBlogEntry.subject}}</h4>
 
-        <div ng-repeat="line in parsedNewBlogEntryBody">
-            <p ng-if="!isCode(line)">{{line}}</p>
-
-            <pre ng-if="isCode(line)" class="prettyprint">
-                <p>{{line}}</p>
-            </pre>
-
+        <div id="new-blog-preview">
         </div>
+
+        <br>
 
         <button class="btn btn-primary" ng-click="submit()">Submit</button>
     </div>
