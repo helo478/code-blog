@@ -33,13 +33,15 @@ angular.module("peak15.createAccount", ["ui.bootstrap"])
 
               var userName = $scope.createAccountCredentials.userName;
               var password = $scope.createAccountCredentials.password;
+              var betaCode = $scope.createAccountCredentials.betaCode;
 
               $http({
                 url: "/createAccountButton",
                 method: "POST",
                 headers: {
                   "username": userName,
-                  "password": password
+                  "password": password,
+                  "betacode": betaCode
                 }
               }).success(function(data, status, headers, config) {
                 $log.info("AJAX callback success for create account", data, status, headers, config);
