@@ -85,10 +85,73 @@ angular.module("codeBlog.users", ['ngRoute'])
       $log.debug("AJAX callback success for get user blogs", data, status, headers, config);
 
       $scope.user.blogs = data;
+
+      // Iterate in reverse through each blog and format code
+      if ($scope.user.blogs) {
+        $scope.user.blogs.reverse().forEach(function (blog, index) {
+          formatBody(blog, index);
+        });
+      }
+
     }).error(function(data, status, headers, config) {
       $log.error("AJAX callback error for get user blogs", data, status, headers, config);
       initializeUser();
-    })
+    });
   };
   $scope.populateUser(); // Populate user and blogs
+
+  function isCode(line) {
+    return line.startsWith("    ");
+  }
+
+  function formatBody(blog, index) {
+
+    var target = document.getElementById("user-blog-" + index);
+
+    if (target) {
+
+      var tokens = blog.body.split("\n");
+      var newCode;
+
+      tokens.forEach(function (token) {
+
+        if (isCode(token)) {
+          // If there is not an existing code section, create one
+          if (!newCode) {
+            newCode = document.createElement("pre");
+            newCode.className += "prettyprint";
+          }
+          else {
+            // Add a line break
+            newCode.textContent += "\n";
+          }
+
+          // Add the code line
+          newCode.textContent += token.substring(3);
+        }
+        else {
+          // If the last line was code, add the code section
+          if (newCode) {
+            target.appendChild(newCode);
+            newCode = null;
+          }
+
+          // Add the non-code line
+          var newParagraph = document.createElement("p");
+          newParagraph.textContent = token;
+          target.appendChild(newParagraph);
+        }
+      });
+
+      // Add a final code section, if exists
+      if (newCode) {
+        target.appendChild(newCode);
+      }
+
+      prettyPrint();
+    }
+    else {
+      setTimeout(function() {formatBody(blog, index); }, 1000);
+    }
+  }
 }]);
