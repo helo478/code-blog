@@ -18,6 +18,9 @@ var blogs = require('./routes/blogs');
 
 var app = express();
 
+// set up image serving
+app.use('/public', express.static(__dirname + '/public'));
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
