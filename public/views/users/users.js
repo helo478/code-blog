@@ -156,7 +156,7 @@ angular.module("codeBlog.users", ['ngRoute', "peak15.editUser", "peak15.authenti
   } // end formatBody
 
   $scope.getAuthenticatedUserId = authenticationService.getAuthenticatedUserId;
-    
+
 }])// end userCtrl
 
 .service("users", ["$log", "$http", "authenticationService",
