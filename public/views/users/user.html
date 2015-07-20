@@ -1,7 +1,9 @@
 <div class="container">
     <h1 class="page-header">{{user.firstName}}&nbsp;{{user.lastName}} ({{user.userName}})</h1>
     <p><a href="mailto:{{user.emailAddress}}">{{user.emailAddress}}</a></p>
-    <a class="btn btn-default" href="#/edit-user/{{user._id}}">Edit</a>
+    <div ng-show="getAuthenticatedUserId() == user._id">
+        <a class="btn btn-default" href="#/edit-user/{{user._id}}">Edit</a>
+    </div>
     <div ng-repeat="blog in user.blogs | orderBy: '-createdOn'">
         <h3><a href="#/blogs/{{blog._id}}">{{blog.subject}}</a></h3>
         <div id="user-blog-{{$index}}"></div>

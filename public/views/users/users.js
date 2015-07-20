@@ -40,8 +40,8 @@ angular.module("codeBlog.users", ['ngRoute', "peak15.editUser", "peak15.authenti
   $scope.populateUsers();
 }])
 
-.controller("UserCtrl", ["$log", "$scope", "$http", "$routeParams",
-  function($log, $scope, $http, $routeParams) {
+.controller("UserCtrl", ["$log", "$scope", "$http", "$routeParams", "authenticationService",
+  function($log, $scope, $http, $routeParams, authenticationService) {
 
   $log.log("Initializing View2Ctrl");
 
@@ -154,6 +154,9 @@ angular.module("codeBlog.users", ['ngRoute', "peak15.editUser", "peak15.authenti
       setTimeout(function() {formatBody(blog, index); }, 1000);
     }
   } // end formatBody
+
+  $scope.getAuthenticatedUserId = authenticationService.getAuthenticatedUserId;
+    
 }])// end userCtrl
 
 .service("users", ["$log", "$http", "authenticationService",
