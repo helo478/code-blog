@@ -1,0 +1,33 @@
+<div class="container">
+    <h1 class="page-header">{{user.userName}}</h1>
+
+    <div class="row">
+        <div class="form-group col-xs-12 col-sm-8 col-md-7">
+            <label>Email Address</label>
+            <input class="form-control" type="text" ng-model="user.emailAddress">
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="form-group col-xs-12 col-sm-8 col-md-7">
+            <label>First Name</label>
+            <input class="form-control" type="text" ng-model="user.firstName">
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="form-group col-xs-12 col-sm-8 col-md-7">
+            <label>Last Name</label>
+            <input class="form-control" type="text" ng-model="user.lastName">
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="form-group col-xs-12 col-sm-8 col-md-7">
+            <button type="button" class="btn btn-primary" ng-click="updateUserData()">Update</button>
+            <button type="button" class="btn btn-standard pull-right" ng-click="populateUserData()">Reset</button>
+        </div>
+    </div>
+
+    <upload-image></upload-image>
+</div>

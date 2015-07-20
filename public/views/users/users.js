@@ -2,7 +2,7 @@
  * Created by Donald on 5/22/2015.
  */
 
-angular.module("codeBlog.users", ['ngRoute'])
+angular.module("codeBlog.users", ['ngRoute', "peak15.editUser", "peak15.authentication"])
 
 .config(["$routeProvider", function($routeProvider) {
 
@@ -153,5 +153,56 @@ angular.module("codeBlog.users", ['ngRoute'])
     else {
       setTimeout(function() {formatBody(blog, index); }, 1000);
     }
-  }
+  } // end formatBody
+}])// end userCtrl
+
+.service("users", ["$log", "$http", "authenticationService",
+    function($log, $http, authenticationService) {
+
+  this.getUserData = function(userId, callback) {
+    $log.debug("entering users service function 'getUserData' for userId: " + userId);
+
+    $http({
+      url: "/users/" + userId,
+      method: "GET",
+      headers: {
+        "content-type": "application/json"
+      }
+    }) // end http
+      .success(function(data) {
+        $log.debug("AJAX success for getUserData: ", data);
+        callback(data);
+    }) // end success
+      .error(function(data, status, headers, config) {
+        $log.error("AJAX error for getUserData: ", data, status, headers, config);
+        callback(null, "An unknown error has occurred");
+    }); // end error
+  };
+
+  this.updateUserData = function(user, callback) {
+
+    var userId = user._id;
+
+    $log.debug("entering users service function 'updateUserData' for userId: " + userId);
+
+    $http({
+      url: "/users/" + userId,
+      method: "PUT",
+      data: user,
+      headers: {
+        "content-type": "application/json",
+        "userid": authenticationService.getAuthenticatedUserId(),
+        "token": JSON.stringify(authenticationService.getSessionToken())
+      }
+    }) // end http
+      .success(function(data, status, headers, config) {
+        $log.log("AJAX success for updateUserData for userId: " + userId);
+        $log.debug(status, headers, config);
+        callback(data);
+    }) // end success
+      .error(function(data, status, headers, config) {
+        $log.error("AJAX error for updateUserData: ", data, status, headers, config);
+        callback(null, "An unknown error has occurred");
+    }); // end error
+  };
 }]);

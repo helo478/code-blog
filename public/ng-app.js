@@ -9,6 +9,7 @@ angular.module("codeBlog", [
   "peak15.navbar",
   "peak15.createAccount",
   "peak15.authentication",
+  "peak15.editUser",
   "codeBlog.home",
   "codeBlog.blogDetail",
   "codeBlog.blogsList",
@@ -29,5 +30,9 @@ angular.module("codeBlog", [
 
   $scope.getAuthenticatedUserName = function() {
       return authenticationService.getAuthenticatedUserName();
+  };
+
+  $scope.getAuthenticatedUserId = function() {
+    return authenticationService.getAuthenticatedUserId();
   };
 }]);

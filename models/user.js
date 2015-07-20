@@ -5,9 +5,11 @@
 var mongoose = require('mongoose');
 
 var userSchema = new mongoose.Schema({
-  name: String,
   userName: { type: String, required: true, unique: true },
-  passwordHash: { type: String, required: true, select: false }
+  passwordHash: { type: String, required: true, select: false },
+  emailAddress: String,
+  firstName: String,
+  lastName: String
 });
 
 var User = mongoose.model("User", userSchema);

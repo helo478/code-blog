@@ -63,7 +63,7 @@ router.post("/", function(req, res) {
     res.setHeader("content-type", "application/json");
     res.send(JSON.stringify("request to post blog could not be authenticated"));
   }
-})
+});
 
 /* get the blog by id */
 router.get("/:blogId", function(req, res) {
@@ -82,47 +82,5 @@ router.get("/:blogId", function(req, res) {
     res.send(JSON.stringify(thing));
   });
 });
-
-/* update an existing thing */
-/*router.put("/:id", function(req, res) {
-
-  Thing.findOne({ "_id": req.params["id"] }, function(err, thing) {
-
-    var data = req.body;
-
-    thing.foo = data['foo'];
-    thing.bar = data['bar'];
-    thing.baz = data['baz'];
-
-    thing.save(function(err, thing) {
-      if (err) {
-        throw err;
-      }
-
-      res.setHeader("content-type", "application/json");
-      res.send(JSON.stringify({
-        'success': true,
-        'thing': thing
-      }));
-    });
-  });
-});
-*/
-
-/* delete a thing */
-/*router.delete("/:id", function(req, res) {
-
-  Thing.find({"_id": req.params["id"]}).remove(function (err) {
-    if (err) {
-      throw err;
-    }
-
-    res.setHeader("content-type", "application/json");
-    res.send(JSON.stringify({
-      "success": true
-    }));
-  });
-});
-*/
 
 module.exports = router;

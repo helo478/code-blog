@@ -48,7 +48,10 @@
                         <a><log-in-button></log-in-button></a>
                     </li>
                     <li ng-show="isLoggedIn()">
-                        <a><span class="glyphicon glyphicon-user"></span> {{getAuthenticatedUserName()}}</a>
+                        <a href="#/users/{{getAuthenticatedUserId()}}">
+                            <span class="glyphicon glyphicon-user"></span>
+                            &nbsp;{{getAuthenticatedUserName()}}
+                        </a>
                     </li>
                     <li ng-show="isLoggedIn()">
                         <a><log-out-button></log-out-button></a>
@@ -66,6 +69,8 @@
     <script src="navbar.js"></script>
     <script src="../directives/create-account/create-account.js"></script>
     <script src="../directives/authentication/authentication.js"></script>
+    <script src="directives/upload-image/upload-image.js"></script>
+    <script src="../public/views/edit-user/edit-user.js"></script>
     <script src="views/home/home.js"></script>
     <script src="views/blog-detail/blog-detail.js"></script>
     <script src="views/blogs-list/blogs-list.js"></script>
