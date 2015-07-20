@@ -34,6 +34,8 @@ var users = require('./routes/users');
 var things = require('./routes/things');
 var blogs = require('./routes/blogs');
 
+console.log("successfully required routes");
+
 var app = express();
 
 // set up image serving
