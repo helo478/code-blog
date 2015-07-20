@@ -8,34 +8,18 @@ var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 
 // default to a localhost configuration:
-var connection_string = 'mongodb://127.0.0.1/code-blog';
+var mongoConnectionString = 'mongodb://127.0.0.1/code-blog';
 
 // if OPENSHIFT env variables are present, use the available connection info:
-if(process.env.OPENSHIFT_MONGODB_DB_PASSWORD){
-  connection_string = process.env.OPENSHIFT_MONGODB_DB_USERNAME + ":" +
+if (process.env.OPENSHIFT_MONGODB_DB_PASSWORD) {
+  mongoConnectionString = process.env.OPENSHIFT_MONGODB_DB_USERNAME + ":" +
   process.env.OPENSHIFT_MONGODB_DB_PASSWORD + "@" +
   process.env.OPENSHIFT_MONGODB_DB_HOST + ':' +
   process.env.OPENSHIFT_MONGODB_DB_PORT + '/' +
   process.env.OPENSHIFT_APP_NAME;
 }
 
-mongoose.connect(connection_string);
-
-/*
-if (process.env.OPENSHIFT_MONGO_DB_URL) {
-  var mongoPath = process.env.OPENSHIFT_MONGODB_DB_URL || 'mongodb://localhost/code-blog';
-  var mongoUserName = process.env.OPENSHIFT_MONGODB_USER_NAME || "";
-  var mongoPassword = process.env.OPENSHIFT_MONGODB_PASSWORD || "";
-  var mongoHost = process.env.OPENSHIFT_MONGODB_HOST || "127.0.0.1";
-  var mongoPort = process.env.OPENSHIFT_MONGODB_PORT || 7070;
-
-  var mongoPath = 'mongodb://' + mongoHost + ':' + mongoPort + '/' +
-}
-else {
-  var mongoPath = 'mongodb://localhost/code-blog';
-}
-mongoose.connect(mongoPath);
-*/
+mongoose.connect(mongoConnectionString);
 
 var routes = require('./routes/index');
 var createAccount = require('./routes/createAccount');
