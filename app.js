@@ -12,12 +12,16 @@ var mongoConnectionString = 'mongodb://127.0.0.1/code-blog';
 
 // if OPENSHIFT env variables are present, use the available connection info:
 if (process.env.OPENSHIFT_MONGODB_DB_PASSWORD) {
+  console.log("This is running within an Openshift environment");
+
   mongoConnectionString = process.env.OPENSHIFT_MONGODB_DB_USERNAME + ":" +
   process.env.OPENSHIFT_MONGODB_DB_PASSWORD + "@" +
   process.env.OPENSHIFT_MONGODB_DB_HOST + ':' +
   process.env.OPENSHIFT_MONGODB_DB_PORT + '/' +
   process.env.OPENSHIFT_APP_NAME;
 }
+
+console.log("mongoConnectionString: ", mongoConnectionString);
 
 mongoose.connect(mongoConnectionString);
 
