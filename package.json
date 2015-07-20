@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "example.js"
+    "start": "examplex.js"
   },
   "main": "example.js",
   "dependencies": {
