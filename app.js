@@ -29,7 +29,7 @@ console.log("MongoDb connection successful");
 
 var routes = require('./routes/index');
 var createAccount = require('./routes/createAccount');
-var logIn = require('./routes/logIn');
+//var logIn = require('./routes/logIn');
 var users = require('./routes/users');
 var things = require('./routes/things');
 var blogs = require('./routes/blogs');
@@ -55,7 +55,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
 app.use('/createAccountButton', createAccount);
-app.use('/logIn', logIn);
+//app.use('/logIn', logIn);
 app.use('/users', users);
 app.use('/things', things);
 app.use('/blogs', blogs);
