@@ -1,6 +1,6 @@
 #!/usr/bin/env nodes
 
-console.log("TEST TEST TEST");
+console.log("entering www");
 
 /**
  * Module dependencies.

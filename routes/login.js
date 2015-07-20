@@ -2,6 +2,8 @@
  * Created by Donald on 6/13/2015.
  */
 
+console.log("entering logIn.js");
+
 var express = require('express');
 var router = express.Router();
 
@@ -11,7 +13,11 @@ var passwordHasher = require("../classes/PasswordHasher");
 var Session = require("../classes/Session");
 var Error = require('../classes/Error');
 
+console.log("just before requiring users");
+
 var User = require('../models/user');
+
+console.log("just after requiring users");
 
 router.post("/", function(req, res) {
 
