@@ -104,7 +104,9 @@ angular.module("codeBlog.users", ['ngRoute', "peak15.editUser", "peak15.authenti
     return line.startsWith("    ");
   }
 
-  function formatBody(blog, index) {
+  function formatBody(blog, index, counter) {
+
+    counter = typeof a !== 'undefined' ? counter : 2;
 
     var target = document.getElementById("user-blog-" + index);
 
@@ -151,7 +153,7 @@ angular.module("codeBlog.users", ['ngRoute', "peak15.editUser", "peak15.authenti
       prettyPrint();
     }
     else {
-      setTimeout(function() {formatBody(blog, index); }, 1000);
+      setTimeout(function() {formatBody(blog, index); }, counter * counter);
     }
   } // end formatBody
 
