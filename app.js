@@ -25,6 +25,8 @@ console.log("mongoConnectionString: ", mongoConnectionString);
 
 mongoose.connect(mongoConnectionString);
 
+console.log("MongoDb connection successful");
+
 var routes = require('./routes/index');
 var createAccount = require('./routes/createAccount');
 var logIn = require('./routes/logIn');
