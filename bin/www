@@ -1,5 +1,7 @@
 #!/usr/bin/env nodes
 
+console.log("TEST TEST TEST");
+
 /**
  * Module dependencies.
  */
