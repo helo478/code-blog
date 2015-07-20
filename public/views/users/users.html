@@ -1,7 +1,9 @@
 <div class="container">
-    <p>This should be a list of users</p>
+    <h1 class="page-header">Bloggers</h1>
 
-    <div ng-repeat="user in users">
-        <a href="#/users/{{user._id}}">{{user.userName}}</a>
-    </div>
+    <ul class="list-group">
+        <li class="list-group-item" ng-repeat="user in users">
+            <a href="#/users/{{user._id}}">{{user.userName}}</a>
+        </li>
+    </ul>
 </div>

@@ -1,11 +1,22 @@
 <div class="container">
     <h1 class="page-header">{{user.firstName}}&nbsp;{{user.lastName}} ({{user.userName}})</h1>
-    <p><a href="mailto:{{user.emailAddress}}">{{user.emailAddress}}</a></p>
+    <h3><a ng-href="mailto:{{user.emailAddress}}">{{user.emailAddress}}</a></h3>
     <div ng-show="getAuthenticatedUserId() == user._id">
-        <a class="btn btn-default" href="#/edit-user/{{user._id}}">Edit</a>
+        <a class="btn btn-default" href="#/edit-user/{{user._id}}">Edit Profile</a>
     </div>
+
+    <hr>
+
     <div ng-repeat="blog in user.blogs | orderBy: '-createdOn'">
-        <h3><a href="#/blogs/{{blog._id}}">{{blog.subject}}</a></h3>
-        <div id="user-blog-{{$index}}"></div>
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <a ng-href="#/blogs/{{blog._id}}">
+                    <span style="font-weight:bold; color:white">
+                        {{blog.subject}}
+                    </span>
+                </a>
+            </div>
+            <div class="panel-body" id="user-blog-{{$index}}"></div>
+        </div>
     </div>
 </div>
