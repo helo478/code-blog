@@ -2,7 +2,7 @@
  * Created by Donald on 6/13/2015.
  */
 
-console.log("entering logInX.js");
+console.log("entering logIn.js");
 
 var express = require('express');
 var router = express.Router();

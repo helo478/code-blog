@@ -29,7 +29,7 @@ console.log("MongoDb connection successful");
 
 var routes = require('./routes/index');
 var createAccount = require('./routes/createAccount');
-var logIn = require('./routes/logInX');
+var logIn = require('./routes/logIn');
 var users = require('./routes/users');
 var things = require('./routes/things');
 var blogs = require('./routes/blogs');
