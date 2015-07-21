@@ -6,6 +6,7 @@
 
 angular.module("codeBlog", [
   "ngRoute",
+  "ui.bootstrap",
   "peak15.navbar",
   "peak15.createAccount",
   "peak15.authentication",
